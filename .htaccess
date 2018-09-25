@@ -1,0 +1,10 @@
+RewriteEngine on
+RewriteBase /
+RewriteRule ^(buy-bitcoins|sell-bitcoins|transfer-bitcoins|request-bitcoins|sign-in|sign-up|logout|faq|contact-us)?$ index.php?a=$1 [L]
+RewriteRule ^page/(.*)?$ index.php?a=page&prefix=$1 [L]
+RewriteRule ^password/change/(.*)?$ index.php?a=password&b=change&hash=$1 [L]
+RewriteRule ^password/reset?$ index.php?a=password&b=reset [L]
+RewriteRule ^email/verification/(.*)?$ index.php?a=email&b=verification&hash=$1 [L]
+RewriteRule ^account/(withdraw-money|deposit-money|wallet|transactions|addresses|security|buy-bitcoins|sell-bitcoins|transfer-bitcoins|request-bitcoins|verification)?$ index.php?a=account&b=$1 [L]
+RewriteRule ^account/transactions/(.*)?$ index.php?a=account&b=transactions&page=$1 [L]
+RewriteRule ^account/transactions_by_address/(.*)?$ index.php?a=account&b=transactions&address=$1 [L]
