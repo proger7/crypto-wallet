@@ -13175,3 +13175,14 @@ ul.nav-categories > li > a:hover {
 .fa-ethereum:before {
 content:"\f42e";
 }
+
+.social-icons {
+  line-height: 45px !important;
+}
+.left {
+  margin-left: 2.5%;
+  margin-right: 2.5%;
+}
+.dropdown-menu {
+  padding-left: 15px !important;
+}

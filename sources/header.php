@@ -24,6 +24,8 @@
 	<link href="<?php echo $settings['url']; ?>assets/css/bootstrap-flipped.min.css" rel="stylesheet" type="text/css" media="all" />
 	<link href="<?php echo $settings['url']; ?>assets/css/bootstrap-rtl.min.css" rel="stylesheet" type="text/css" media="all" />
 	<?php } ?>
+
+
 </head>
 
 <body>
@@ -35,11 +37,44 @@
 			<div class="nav-topbar clearfix ">
 				<div class="container">
 					<div class="left">
-						<ul class="list-inline social-icons social-icons-small social-icons-fullrounded">
+						<!--<ul class="list-inline social-icons social-icons-small social-icons-fullrounded">
 							<li><a href="<?php echo $settings['fb_link']; ?>" target="_blank"><i class="fa fa-facebook"></i></a></li>
 							<li><a href="<?php echo $settings['tw_link']; ?>" target="_blank"><i class="fa fa-twitter"></i></a></li>
-						</ul>
+						</ul>-->
+
+						<div class="list-inline social-icons social-icons-small social-icons-fullrounded">
+							<div class="dropdown"> 
+								<button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown">
+									Select currency
+								</button>
+								<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+									 <a class="dropdown-item disabled" href="#">USD</a> <a class="dropdown-item" href="#">Dollar</a><br/>
+									 <a class="dropdown-item" href="#">EUR Euro</a>
+								</div>
+							</div>
+						</div>
+
 					</div>
+					<div class="left">
+						<!--<ul class="list-inline social-icons social-icons-small social-icons-fullrounded">
+							<li><a href="<?php echo $settings['fb_link']; ?>" target="_blank"><i class="fa fa-facebook"></i></a></li>
+							<li><a href="<?php echo $settings['tw_link']; ?>" target="_blank"><i class="fa fa-twitter"></i></a></li>
+						</ul>-->
+
+						<div class="list-inline social-icons social-icons-small social-icons-fullrounded">
+							<div class="dropdown"> 
+								<button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown">
+									Select cryptocurrency
+								</button>
+								<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+									 <a class="dropdown-item disabled" href="#">BTC</a> <a class="dropdown-item" href="#">Bitcoin</a><br/>
+									 <a class="dropdown-item" href="#">ETH Ethereum</a>
+								</div>
+							</div>
+						</div>
+
+					</div>
+
 					<div class="right">
 						<ul class="nav navbar-nav navbar-right">
 							<?php if(checkSession()) { ?>

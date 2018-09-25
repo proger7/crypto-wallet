@@ -36,7 +36,8 @@
 	<script src="<?php echo $settings['url']; ?>assets/js/plugins/owl-carousel/owl.carousel.min.js"></script>
 	<script src="<?php echo $settings['url']; ?>assets/js/bravana.js"></script>
 <script src="<?php echo $settings['url']; ?>assets/js/functions.js"></script>
-	<input type="hidden" id="url" value="<?php echo $settings['url']; ?>">
+	<input type="hidden" id="url" value="<?php echo $settings['url']; ?>">		
+
 </body>
 
 </html>
