@@ -13184,5 +13184,28 @@ content:"\f42e";
   margin-right: 2.5%;
 }
 .dropdown-menu {
-  padding-left: 15px !important;
+  /*padding-left: 15px !important;*/
+}
+
+/* Nav bar */
+.navbar-nav li .bootstrap-select {
+  margin-top: 10px;
+}
+.bootstrap-select .dropdown-toggle .filter-option {
+  background-color: #616871;
+  color: #fff;
+}
+.btn-default, .btn-default:hover, .btn-default:active {
+  border-color: #616871;
+}
+.bootstrap-select .dropdown-toggle .caret {
+  color: #fff;
+}
+.menu-dropdown {
+  margin-right: 10px;
+  font-size: 11px;
+}
+
+.menu-dropdown .btn, .menu-dropdown .dropdown-menu.inner {
+  font-size: 11px;
 }

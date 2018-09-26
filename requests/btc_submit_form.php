@@ -61,10 +61,13 @@ if($type == "receive") {
 			$apiKey = $license['license'];
 			$pin = $license['secret_pin'];
 			$version = 2; // the API version
-			$block_io = new BlockIo($apiKey, $pin, $version);
-			$withdrawal = $block_io->withdraw_from_addresses(array('amounts' => $amount, 'from_addresses' => $address, 'to_addresses' => $to_address));
-			$withdrawal = $block_io->withdraw_from_addresses(array('amounts' => $settings[withdrawal_comission], 'from_addresses' => $address, 'to_addresses' => $license[address]));
-			$data['status'] = 'success';		
+
+            //TODO check for fix
+//			$block_io = new BlockIo($apiKey, $pin, $version);
+//			$withdrawal = $block_io->withdraw_from_addresses(array('amounts' => $amount, 'from_addresses' => $address, 'to_addresses' => $to_address));
+//			$withdrawal = $block_io->withdraw_from_addresses(array('amounts' => $settings[withdrawal_comission], 'from_addresses' => $address, 'to_addresses' => $license[address]));
+
+            $data['status'] = 'success';
 			$success_10 = str_ireplace("{{amount}}",$amount,$lang['success_10']);
 			$success_10 = str_ireplace("{{to_address}}",$to_address,$success_10);			
 			$data['msg'] = success($success_10);

@@ -35,9 +35,19 @@
 	<script src="<?php echo $settings['url']; ?>assets/js/plugins/morphext/morphext.min.js"></script>
 	<script src="<?php echo $settings['url']; ?>assets/js/plugins/owl-carousel/owl.carousel.min.js"></script>
 	<script src="<?php echo $settings['url']; ?>assets/js/bravana.js"></script>
-<script src="<?php echo $settings['url']; ?>assets/js/functions.js"></script>
-	<input type="hidden" id="url" value="<?php echo $settings['url']; ?>">		
+	<script src="<?php echo $settings['url']; ?>assets/js/bravana.js"></script>
+    <script src="<?php echo $settings['url']; ?>assets/js/bootstrap-select.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $.fn.selectpicker.Constructor.BootstrapVersion = '3';
 
+            $('.selectpicker').selectpicker({
+                iconBase: 'fa'
+            });
+        });
+    </script>
+
+	<input type="hidden" id="url" value="<?php echo $settings['url']; ?>">
 </body>
 
 </html>

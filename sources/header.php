@@ -24,8 +24,7 @@
 	<link href="<?php echo $settings['url']; ?>assets/css/bootstrap-flipped.min.css" rel="stylesheet" type="text/css" media="all" />
 	<link href="<?php echo $settings['url']; ?>assets/css/bootstrap-rtl.min.css" rel="stylesheet" type="text/css" media="all" />
 	<?php } ?>
-
-
+    <link href="<?php echo $settings['url']; ?>assets/css/bootstrap-select.min.css" rel="stylesheet" type="text/css" media="all" />
 </head>
 
 <body>
@@ -41,50 +40,46 @@
 							<li><a href="<?php echo $settings['fb_link']; ?>" target="_blank"><i class="fa fa-facebook"></i></a></li>
 							<li><a href="<?php echo $settings['tw_link']; ?>" target="_blank"><i class="fa fa-twitter"></i></a></li>
 						</ul>-->
-
-						<div class="list-inline social-icons social-icons-small social-icons-fullrounded">
-							<div class="dropdown"> 
-								<button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown">
-									Select currency
-								</button>
-								<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-									 <a class="dropdown-item disabled" href="#">USD</a> <a class="dropdown-item" href="#">Dollar</a><br/>
-									 <a class="dropdown-item" href="#">EUR Euro</a>
-								</div>
-							</div>
-						</div>
-
 					</div>
 					<div class="left">
 						<!--<ul class="list-inline social-icons social-icons-small social-icons-fullrounded">
 							<li><a href="<?php echo $settings['fb_link']; ?>" target="_blank"><i class="fa fa-facebook"></i></a></li>
 							<li><a href="<?php echo $settings['tw_link']; ?>" target="_blank"><i class="fa fa-twitter"></i></a></li>
 						</ul>-->
-
-						<div class="list-inline social-icons social-icons-small social-icons-fullrounded">
-							<div class="dropdown"> 
-								<button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown">
-									Select cryptocurrency
-								</button>
-								<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-									 <a class="dropdown-item disabled" href="#">BTC</a> <a class="dropdown-item" href="#">Bitcoin</a><br/>
-									 <a class="dropdown-item" href="#">ETH Ethereum</a>
-								</div>
-							</div>
-						</div>
-
 					</div>
 
 					<div class="right">
 						<ul class="nav navbar-nav navbar-right">
 							<?php if(checkSession()) { ?>
-							<li><a href="<?php echo $settings['url']; ?>account/wallet"><img src="https://www.masterinvest.info/uploads/coins/128/ethereum-lite.png" width="15px" alt="ethereum" /> <?php echo get_user_balance_eth($_SESSION['eth_uid']); ?> ETH</a></li>		
-							<li><a href="<?php echo $settings['url']; ?>account/wallet"><i class="fa fa-bitcoin"></i> <?php echo get_user_balance_btc($_SESSION['btc_uid']); ?> BTC</a></li>
-							<li><a href="<?php echo $settings['url']; ?>account/wallet"><?php echo $lang['strong_my_wallet']; ?></a></li>
-							<li><a href="<?php echo $settings['url']; ?>logout"><?php echo $lang['strong_logout']; ?></a></li>
+                                <li>
+                                    <div class="menu-dropdown">
+                                        <select class="selectpicker" data-width="165">
+                                            <option data-icon="fa-bitcoin">
+                                                <?php echo get_user_balance_btc($_SESSION['btc_uid']); ?> BTC
+                                            </option>
+                                            <option data-icon="fa-bitcoin">
+                                                <?php echo get_user_balance_eth($_SESSION['eth_uid']); ?> ETH
+                                            </option>
+                                        </select>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="menu-dropdown">
+                                        <select class="selectpicker" data-width="80">
+                                            <option data-icon="fa-dollar">
+                                                USD
+                                            </option>
+                                            <option data-icon="fa-euro">
+                                                EUR
+                                            </option>
+                                        </select>
+                                    </div>
+                                </li>
+                                <li><a href="<?php echo $settings['url']; ?>account/wallet"><?php echo $lang['strong_my_wallet']; ?></a></li>
+                                <li><a href="<?php echo $settings['url']; ?>logout"><?php echo $lang['strong_logout']; ?></a></li>
 							<?php } else { ?>
-							<li><a href="<?php echo $settings['url']; ?>sign-in"><?php echo $lang['sign_in']; ?></a></li>
-							<li><a href="<?php echo $settings['url']; ?>sign-up"><?php echo $lang['sign_up']; ?></a></li>
+                                <li><a href="<?php echo $settings['url']; ?>sign-in"><?php echo $lang['sign_in']; ?></a></li>
+                                <li><a href="<?php echo $settings['url']; ?>sign-up"><?php echo $lang['sign_up']; ?></a></li>
 							<?php } ?>
 						</ul>
 					</div>
