@@ -23,7 +23,7 @@ $btcwallet = new Client($rpc_host, $rpc_port, $rpc_user, $rpc_pass);
 include("includes/email_templates.php");
 include(getLanguage($settings['url'],null,null));
 
-if(checkSession()) {	
+if(checkSession()) {
 	$btcwaddresses = $btcwallet->getAddressList(idinfo($_SESSION['btc_uid'],"email"));
 	$btcwlatesttransactions =  $btcwallet->getTransactionList(idinfo($_SESSION['btc_uid'],"email"));
 	update_activity($_SESSION['btc_uid']);

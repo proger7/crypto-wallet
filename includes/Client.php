@@ -104,7 +104,7 @@ class Client {
 	function rpc($scheme,$ip,$port,$rpcuser,$rpcpass,$command,$params=null){
 		$url = $scheme.'://'.$ip.':'.$port.'/';
 		$request = '{"jsonrpc": "1.0", "id":"BitcoinWallet_1_0", "method": "'.$command.'", "params": ['.$params.'] }';		
-		
+
 		$ch = curl_init($url);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 		curl_setopt($ch, CURLOPT_BINARYTRANSFER,true);
@@ -118,7 +118,7 @@ class Client {
 		$error  = $response['error'];
 		curl_close($ch);
 
-		switch($command){
+        switch($command){
 
 			case "validateaddress":				
 				return ($result['isvalid']);
@@ -142,7 +142,8 @@ class Client {
 	
 	function getinfo($info,$server_ip,$server_port,$rpc_user,$rpc_pass)
 	{
-		$check_login[] = $this->rpc("http",$server_ip,$server_port,$rpc_user,$rpc_pass,'getinfo') ;
+		$check_login = $this->rpc("http",$server_ip,$server_port,$rpc_user,$rpc_pass,'getwalletinfo');
+
 		if ( !is_array($check_login) ) {
 			die (' There was an error with your Log In parameters. Is your RPC Username and Password correct?');
 		}

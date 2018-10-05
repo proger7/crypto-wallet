@@ -5,10 +5,10 @@ $b = protect($_GET['b']);
 if($b == "explore") {
     $query = $db->query("SELECT * FROM btc_users_money WHERE id='$id'");
     if($query->num_rows==0) { header("Location; ./?a=money"); }
-    $row = $query->fetch_assoc();
-    $gateway = gatewayinfo($row['gateway_id'],"name");
-    $currency = gatewayinfo($row['gateway_id'],"currency");
-    $payment_method = $gateway.' '.$currency;
+        $row = $query->fetch_assoc();
+        $gateway = gatewayinfo($row['gateway_id'],"name");
+        $currency = gatewayinfo($row['gateway_id'],"currency");
+        $payment_method = $gateway.' '.$currency;
     ?>
     <ol class="breadcrumb">
         <li><a href="./"><?php echo $settings['name']; ?> Administrator</a></li>

@@ -46,10 +46,10 @@
 	</div>
 	<div class="col-lg-12">
 		<?php 
-		$buy_balance = formatBTC(convertToBTCFromSatoshi(getAddressBalance($buy_address)));
-		$sell_balance = formatBTC(convertToBTCFromSatoshi(getAddressBalance($sell_address)));
-		echo info("Your current balance in your BUY address ($buy_address): $buy_balance BTC");
-		echo info("Your current balance in your SELL address ($sell_address): $sell_balance BTC");		
+            $buy_balance = formatBTC(convertToBTCFromSatoshi(getAddressBalance($buy_address)));
+            $sell_balance = formatBTC(convertToBTCFromSatoshi(getAddressBalance($sell_address)));
+            echo info("Your current balance in your BUY address ($buy_address): $buy_balance BTC");
+            echo info("Your current balance in your SELL address ($sell_address): $sell_balance BTC");
 		?>
 		<div class="panel panel-primary">
 			<div class="panel-heading">New Buy & Sell Bitcoins Requests</div>
@@ -67,21 +67,27 @@
 					</thead>
 					<tbody>
 						<?php
-						$query = $db->query("SELECT * FROM btc_requests WHERE status='1' ORDER BY id DESC");
-						if($query->num_rows>0) {
-							while($row = $query->fetch_assoc()) {
-								if($row['status'] == "1") { 
-									$status = '<span class="label label-info">Awaiting</span>';
-								} elseif($row['status'] == "2") {
-									$status = '<span class="label label-success">Processed</span>';
-								} elseif($row['status'] == "3") {
-									$status = '<span class="label label-danger">Canceled</span>';
-								} else { $status = '<span class="label label-defualt">Unknown</span>'; }
-								$payment_method = gatewayinfo($row['gateway_id'],"name");
-								$currency = gatewayinfo($row['gateway_id'],"currency");
-								$payment_method = $payment_method.' '.$currency;
-								if($row['type'] == "1") { $type = 'Buy Bitcoins'; } elseif($row['type'] == "2") { $type = 'Sell Bitcoins'; } else { $type = 'Unknown'; }
-								?>
+                            $query = $db->query("SELECT * FROM btc_requests WHERE status='1' ORDER BY id DESC");
+                            if($query->num_rows>0) {
+                                while($row = $query->fetch_assoc()) {
+                                    if($row['status'] == "1") {
+                                        $status = '<span class="label label-info">Awaiting</span>';
+                                    } elseif($row['status'] == "2") {
+                                        $status = '<span class="label label-success">Processed</span>';
+                                    } elseif($row['status'] == "3") {
+                                        $status = '<span class="label label-danger">Canceled</span>';
+                                    } else {
+                                        $status = '<span class="label label-defualt">Unknown</span>';
+                                    }
+                                    $payment_method = gatewayinfo($row['gateway_id'],"name");
+                                    $currency = gatewayinfo($row['gateway_id'],"currency");
+                                    $payment_method = $payment_method.' '.$currency;
+                                    if($row['type'] == "1") {
+                                        $type = 'Buy Bitcoins';
+                                    } elseif($row['type'] == "2") {
+                                        $type = 'Sell Bitcoins';
+                                    } else { $type = 'Unknown'; }
+                        ?>
 								<tr>
 									<td><a href="./?a=users&b=edit&id=<?php echo $row['uid']; ?>"><?php echo idinfo($row['uid'],"email"); ?></a></td>
 									<td><?php echo $type; ?></td>

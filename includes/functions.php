@@ -27,6 +27,7 @@ function siteURL() {
   }
 }
 
+//TODO Check for fix
 function currencyConvertor($amount,$from_Currency,$to_Currency) {
 	 $amount = urlencode($amount);
 	  $from_Currency = urlencode($from_Currency);
@@ -40,16 +41,17 @@ function currencyConvertor($amount,$from_Currency,$to_Currency) {
 }
 
 function getAddressBalance($address) {
-	 $address = urlencode($address);
-	  $get = "https://blockchain.info/q/addressbalance/$address?confirmations=6";
-	  $get = file_get_contents($get);
-	 return $get;
+    $address = urlencode($address);
+    $get = "https://blockchain.info/q/addressbalance/$address?confirmations=6";
+    $get = file_get_contents($get);
+    return $get;
 }
 
 function getLanguage($url, $ln = null, $type = null) {
 	// Type 1: Output the available languages
 	// Type 2: Change the path for the /requests/ folder location
 	// Set the directory location
+    $available = '';
 	if($type == 2) {
 		$languagesDir = '../languages/';
 	} else {
@@ -405,7 +407,7 @@ function idinfo($uid,$value) {
 	$query = $db->query("SELECT * FROM btc_users WHERE id='$uid'");
 	$row = $query->fetch_assoc();
 	return $row[$value];
-}	
+}
 
 
 function walletinfo($uid,$value) {
@@ -469,7 +471,7 @@ function get_user_balance_eth($uid) {
 
 function get_total_btc() {
 	global $db, $btcwallet, $rpc_host, $rpc_port, $rpc_user, $rpc_pass;
-	$info = $btcwallet->getinfo("balance",$rpc_host,$rpc_port,$rpc_user,$rpc_pass);
+	$info = $btcwallet->getinfo("balance", $rpc_host, $rpc_port, $rpc_user, $rpc_pass);
 	return $info;
 }
 
@@ -544,7 +546,7 @@ function get_user_money($uid) {
 
 function get_current_bitcoin_price() {
 	global $db, $settings;
-    $url = "https://bitpay.com/api/rates/USD";
+//    $url = "https://bitpay.com/api/rates/USD";
 	$url = "https://api.gdax.com/products/BTC-USD/ticker";
 	$ch = curl_init();
 	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
@@ -770,103 +772,108 @@ function StdClass2array($class)
 //}
 
 function admin_get_profit() {
-	global $db, $settings, $btcwallet;
-	$balance = $btcwallet->getBalance($fee_address);
-	$balance2 = $btcwallet->getBalance($sell_address);
-	$balance3 = $btcwallet->getBalance($buy_address);
-	$balance = $balance + $balance2 + $balance3;
-	return $balance;
+	global $db, $settings, $btcwallet, $fee_address, $sell_address, $buy_address;
+
+	$addressesArray = [$fee_address, $sell_address, $buy_address];
+	$addressesArray = array_unique($addressesArray);
+
+	$balance = 0;
+	foreach ($addressesArray as $address) {
+        $balance += $btcwallet->getBalance($address);
+    }
+
+    return $balance;
 }
 
 //TODO Check for fix
-//function btc_update_transactions($uid) {
-//	global $db, $settings;
-//	$get_address = $db->query("SELECT * FROM btc_users_addresses WHERE uid='$uid'");
-//	if($get_address->num_rows>0) {
-//		while($get = $get_address->fetch_assoc()) {
-//		$license_query = $db->query("SELECT * FROM btc_blockio_licenses WHERE id='$get[lid]' ORDER BY id");
-//		$license = $license_query->fetch_assoc();
-//		$apiKey = $license['license'];
-//		$pin = $license['secret_pin'];
-//		$version = 2; // the API version
-//		$block_io = new BlockIo($apiKey, $pin, $version);
-//		$received = $block_io->get_transactions(array('type' => 'received', 'addresses' => $get[address]));
-//		if($received->status == "success") {	
-//			$data = $received->data->txs;
-//			$dt = StdClass2array($data);
-//			foreach($dt as $k=>$v) {
-//				$txid = $v['txid'];
-//				$time = $v['time'];
-//				$amounts = $v['amounts_received'];
-//				$amounts = StdClass2array($amounts);
-//				foreach($amounts as $a => $b) {
-//					$recipient = $b['recipient'];
-//					$amount = $b['amount'];
-//				} 
-//				$senders = $v['senders'];
-//				$senders = StdClass2array($senders);
-//				foreach($senders as $c => $d) {
-//					 $sender = $d;
-//				}
-//				$confirmations = $v['confirmations'];
-//					$check = $db->query("SELECT * FROM btc_users_transactions WHERE uid='$uid' and txid='$txid'");
-//					if($check->num_rows>0) {
-//						$update = $db->query("UPDATE btc_users_transactions SET confirmations='$confirmations' WHERE uid='$uid' and txid='$txid'");
-//					} else {
-//						$insert = $db->query("INSERT btc_users_transactions (uid,type,recipient,sender,amount,time,confirmations,txid) VALUES ('$uid','received','$recipient','$sender','$amount','$time','$confirmations','$txid')");
-//					}
-//			}
-//		}
-//		$sent = $block_io->get_transactions(array('type' => 'sent', 'addresses' => $get[address]));
-//		if($sent->status == "success") {	
-//			$data = $sent->data->txs;
-//			$dt = StdClass2array($data);
-//			foreach($dt as $k=>$v) {
-//				$txid = $v['txid'];
-//				$time = $v['time'];
-//				$amounts = $v['amounts_sent'];
-//				$amounts = StdClass2array($amounts);
-//				foreach($amounts as $a => $b) {
-//					$recipient = $b['recipient'];
-//					$amount = $b['amount'];
-//				} 
-//				$senders = $v['senders'];
-//				$senders = StdClass2array($senders);
-//				foreach($senders as $c => $d) {
-//					 $sender = $d;
-//				}
-//				$confirmations = $v['confirmations'];
-//					$check = $db->query("SELECT * FROM btc_users_transactions WHERE uid='$uid' and txid='$txid'");
-//					if($check->num_rows>0) {
-//						$update = $db->query("UPDATE btc_users_transactions SET confirmations='$confirmations' WHERE uid='$uid' and txid='$txid'");
-//					} else {
-//						$insert = $db->query("INSERT btc_users_transactions (uid,type,recipient,sender,amount,time,confirmations,txid) VALUES ('$uid','sent','$recipient','$sender','$amount','$time','$confirmations','$txid')");
-//					}
-//			}
-//		}
-//		}
-//	}
-//}
-
-function btc_delete_fee_transactions($uid) {
+function btc_update_transactions($uid) {
 	global $db, $settings;
 	$get_address = $db->query("SELECT * FROM btc_users_addresses WHERE uid='$uid'");
 	if($get_address->num_rows>0) {
 		while($get = $get_address->fetch_assoc()) {
 		$license_query = $db->query("SELECT * FROM btc_blockio_licenses WHERE id='$get[lid]' ORDER BY id");
 		$license = $license_query->fetch_assoc();
-		$addr = $license['address'];
-		$query = $db->query("SELECT * FROM btc_users_transactions WHERE uid='$uid' and type='sent'");
-		if($query->num_rows>0) {
-			while($row = $query->fetch_assoc()) {
-				if($license['address'] >= $row['recipient']) {
-					$delete = $db->query("DELETE FROM btc_users_transactions WHERE id='$row[id]' and uid='$uid'");
+		$apiKey = $license['license'];
+		$pin = $license['secret_pin'];
+		$version = 2; // the API version
+		$block_io = new BlockIo($apiKey, $pin, $version);
+		$received = $block_io->get_transactions(array('type' => 'received', 'addresses' => $get[address]));
+		if($received->status == "success") {
+			$data = $received->data->txs;
+			$dt = StdClass2array($data);
+			foreach($dt as $k=>$v) {
+				$txid = $v['txid'];
+				$time = $v['time'];
+				$amounts = $v['amounts_received'];
+				$amounts = StdClass2array($amounts);
+				foreach($amounts as $a => $b) {
+					$recipient = $b['recipient'];
+					$amount = $b['amount'];
 				}
+				$senders = $v['senders'];
+				$senders = StdClass2array($senders);
+				foreach($senders as $c => $d) {
+					 $sender = $d;
+				}
+				$confirmations = $v['confirmations'];
+					$check = $db->query("SELECT * FROM btc_users_transactions WHERE uid='$uid' and txid='$txid'");
+					if($check->num_rows>0) {
+						$update = $db->query("UPDATE btc_users_transactions SET confirmations='$confirmations' WHERE uid='$uid' and txid='$txid'");
+					} else {
+						$insert = $db->query("INSERT btc_users_transactions (uid,type,recipient,sender,amount,time,confirmations,txid) VALUES ('$uid','received','$recipient','$sender','$amount','$time','$confirmations','$txid')");
+					}
+			}
+		}
+		$sent = $block_io->get_transactions(array('type' => 'sent', 'addresses' => $get[address]));
+		if($sent->status == "success") {
+			$data = $sent->data->txs;
+			$dt = StdClass2array($data);
+			foreach($dt as $k=>$v) {
+				$txid = $v['txid'];
+				$time = $v['time'];
+				$amounts = $v['amounts_sent'];
+				$amounts = StdClass2array($amounts);
+				foreach($amounts as $a => $b) {
+					$recipient = $b['recipient'];
+					$amount = $b['amount'];
+				}
+				$senders = $v['senders'];
+				$senders = StdClass2array($senders);
+				foreach($senders as $c => $d) {
+					 $sender = $d;
+				}
+				$confirmations = $v['confirmations'];
+					$check = $db->query("SELECT * FROM btc_users_transactions WHERE uid='$uid' and txid='$txid'");
+					if($check->num_rows>0) {
+						$update = $db->query("UPDATE btc_users_transactions SET confirmations='$confirmations' WHERE uid='$uid' and txid='$txid'");
+					} else {
+						$insert = $db->query("INSERT btc_users_transactions (uid,type,recipient,sender,amount,time,confirmations,txid) VALUES ('$uid','sent','$recipient','$sender','$amount','$time','$confirmations','$txid')");
+					}
 			}
 		}
 		}
 	}
 }
+
+//function btc_delete_fee_transactions($uid) {
+//	global $db, $settings;
+//	$get_address = $db->query("SELECT * FROM btc_users_addresses WHERE uid='$uid'");
+//	if($get_address->num_rows>0) {
+//		while($get = $get_address->fetch_assoc()) {
+//		$license_query = $db->query("SELECT * FROM btc_blockio_licenses WHERE id='$get[lid]' ORDER BY id");
+//		$license = $license_query->fetch_assoc();
+////		$addr = $license['address'];
+//		$query = $db->query("SELECT * FROM btc_users_transactions WHERE uid='$uid' and type='sent'");
+//		if($query->num_rows>0) {
+//			while($row = $query->fetch_assoc()) {
+//				if($license['address'] >= $row['recipient']) {
+//					$delete = $db->query("DELETE FROM btc_users_transactions WHERE id='$row[id]' and uid='$uid'");
+//				}
+//			}
+//		}
+//		}
+//	}
+//}
 
 //TODO Check for fix
 //function btc_get_bitcoin_prices() {

@@ -24,7 +24,7 @@ function formatBTC($value) {
 }
 
 $rpc_host = "172.104.240.48";
-$rpc_port = "8332";
+$rpc_port = "18332";
 $rpc_user = "anspot";
 $rpc_pass = "2666df3307327d5fcc35225a91167f939ccd7c9bd5cabd24d230ddf6c646ab14";
 

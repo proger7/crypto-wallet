@@ -83,8 +83,8 @@ if($b == "edit") {
 						<option value="1" <?php if($row['status'] == "1") { echo 'selected'; } ?>>Not verified</option>
 						<option value="2" <?php if($row['status'] == "2") { echo 'selected'; } ?>>Banned</option>
 						<option value="3" <?php if($row['status'] == "3") { echo 'selected'; } ?>>Verified</option>
-						<option value="666" <?php if($row['status'] == "666") { echo 'selected'; } ?>>Administrator</option>
-						<option value="777" <?php if($row['status'] == "777") { echo 'selected'; } ?>>Operator</option>
+<!--						<option value="666" --><?php //if($row['status'] == "666") { echo 'selected'; } ?><!-->Administrator</option>-->
+<!--						<option value="777" --><?php //if($row['status'] == "777") { echo 'selected'; } ?><!-->Operator</option>-->
 					</select>
 				</div>
 				<div class="form-group">
